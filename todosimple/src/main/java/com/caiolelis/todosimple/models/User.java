@@ -1,5 +1,8 @@
 package com.caiolelis.todosimple.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -39,6 +42,9 @@ public class User {
     @JsonProperty(access = Access.WRITE_ONLY)
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks = new ArrayList<Task>();
+
     public User() {
     }
 
@@ -46,6 +52,14 @@ public class User {
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    public List<Task> getTasks() {
+        return this.tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public Long getId() {
